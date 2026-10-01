@@ -2,16 +2,33 @@ name: hello world
 
 on:
   push:
-      branches:
-          - main
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-   hello:
-      runs-on: ubuntu-latest
+  hello:
+    runs-on: ubuntu-latest
 
-      steps:
-      - uses: actions/checkout@v2
-      - name: run echo
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Say hello
         run: echo "Hello, world!"
+
       - name: Run tests
         run: pytest .
+
+      - name: Lint code
+        run: pylint **/*.py
