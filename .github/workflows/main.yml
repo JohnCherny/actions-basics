@@ -13,3 +13,5 @@ jobs:
       - uses: actions/checkout@v2
       - name: run echo
         run: echo "Hello, world!"
+      - name: Run tests
+        run: pytest .
